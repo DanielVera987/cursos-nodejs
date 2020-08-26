@@ -1,0 +1,22 @@
+{
+  "name": "uploader",
+  "version": "0.0.1",
+  "description": "Aplicacion de los cursos de nodejs",
+  "main": "upload.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "supervisor upload.js",
+    "restart": "supervisor upload.js"
+  },
+  "keywords": [
+    "upload",
+    "file",
+    "node.js"
+  ],
+  "author": "Daniel Vera",
+  "license": "MIT",
+  "dependencies": {
+    "formidable": "^1.2.2",
+    "fs-extra": "^9.0.1"
+  }
+}

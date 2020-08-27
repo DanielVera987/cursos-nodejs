@@ -11,7 +11,7 @@ function webServer(req, res)
 		res.end(data)
 	}
 
-	res.writeHead(200, {'Content-Type':'text/html'})
+	res.writeHead(200, {'Content-Type':'text/plaint'})
 	fs.readFile('assets/index.html', readFile)
 }
 

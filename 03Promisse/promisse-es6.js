@@ -12,21 +12,24 @@ let fs = require('fs'),
     })
 
 promise
-    .then((resolve, reject) => {
-      
+    .then((resolved, rejectd) => {
+
       return new Promise((resolve, reject) => {
       fs.readFile(file, function(err, data){
         return (err) ? reject(new Error('El archivo no se pudo leer')) : resolve(data)
       })
       })
     })
-    .then((resolve, reject) => {
-      fs.writeFile(newFile, resolve, function(err){
-        return (err) ? reject(new Error("El archivo no se pudo copias")) : resolve('El archivo se ha copiado con exito')
+    .then((resolved, rejectd) => {
+      
+      return new Promise((resolve, reject) => {
+        fs.writeFile(newFile, resolved, function(err){
+          return (err) ? reject(new Error("El archivo no se pudo copias")) : resolve('El archivo se ha copiado con exito')
+        })
       })
     })
-    .then((resolve, reject) => {
-      console.log(resolve)
+    .then((resolved, rejectd) => {
+      console.log(resolved)
     })
     .catch((err) => {
       console.log(err.message)

@@ -1,0 +1,17 @@
+{
+  "name": "template-engines",
+  "version": "1.0.0",
+  "description": "Este ejercicio se trata de mostrar como hacer template con jade y ejs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "supervisor server.js"
+  },
+  "author": "Daniel Vera",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jade": "^1.11.0",
+    "serve-favicon": "^2.5.0"
+  }
+}

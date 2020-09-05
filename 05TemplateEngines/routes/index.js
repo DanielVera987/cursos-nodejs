@@ -19,14 +19,14 @@ router
       res.render('index', locals)
     })
 
-    .get('/ejs', (req, res, next) => {
+    .get('/ejs', function(req, res, next){
       let locals = {
         title : 'Ejs',
         link : 'http://embeddedjs.com/',
         description : 'EJS limpia el HTML del JavaScript con plantillas del lado cliente. Combina datos y una plantilla para producir HTML. Código entre <% %> se ejecuta. Código entre <%= %> lo añade al HTML que se resuelve.'
         
       }
-      res.render('index.ejs', locals)
+      res.render('index', locals)
     })
 
 

@@ -3,7 +3,6 @@
 const express = require('express'),
       favicon = require('serve-favicon'),
       morgan = require('morgan'),
-      jade = require('jade'),
       routes = require('./routes/index'),
       faviconURL = `${__dirname}/public/img/node-favicon.png`,
       publicDir = express.static(`${__dirname}/public`),
@@ -14,7 +13,8 @@ const express = require('express'),
 app 
   //Configurando app
   .set('views', viewDir)
-  .set('view engine', 'jade')
+  //.set('view engine', 'jade')
+  .set('view engine', 'ejs')
   .set('port', port)
   //ejecutando middlewares
   .use( favicon(faviconURL) )

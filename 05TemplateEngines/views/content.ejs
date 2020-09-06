@@ -13,3 +13,16 @@
 		alert('He presionado el botón desde EJS con JavaScript')
 	}
 </script>
+<article class="container">
+	<h2>Estaciones del Año en México</h2>
+	<% for(var i=0; i<seasons.length; i++){ %>
+		<div class="item">
+			<h3><%=seasons[i][0]%></h3>
+			<ul>
+				<% for(var j=0; j<seasons[i][1].length; j++){ %>
+					<li><%=seasons[i][1][j]%></li>
+				<% } %>
+			</ul>
+		</div>
+	<% } %>
+</article>

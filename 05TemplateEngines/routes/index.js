@@ -23,8 +23,13 @@ router
       let locals = {
         title : 'Ejs',
         link : 'http://embeddedjs.com/',
-        description : 'EJS limpia el HTML del JavaScript con plantillas del lado cliente. Combina datos y una plantilla para producir HTML. Código entre <% %> se ejecuta. Código entre <%= %> lo añade al HTML que se resuelve.'
-        
+        description : 'EJS limpia el HTML del JavaScript con plantillas del lado cliente. Combina datos y una plantilla para producir HTML. Código entre <% %> se ejecuta. Código entre <%= %> lo añade al HTML que se resuelve.',
+        seasons : [
+          ['Primavera', ['Abril', 'Mayo', 'Junio']],
+          ['Verano', ['Julio', 'Agosto', 'Septiembre']],
+          ['Otoño', ['Octubre', 'Noviembre', 'Diciembre']],
+          ['Invierno', ['Enero', 'Febrero', 'Marzo']],
+        ]
       }
       res.render('index', locals)
     })

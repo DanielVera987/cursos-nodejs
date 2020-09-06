@@ -34,5 +34,20 @@ router
       res.render('index', locals)
     })
 
+    .use((req, res, netx) => {
+      let error = new Error(),
+          locals = {
+            title : 'Error 404',
+            description : 'Recurso No Encontrado',
+            error : error
+          }
+
+      error.status = 404
+
+      res.render('error', locals)
+
+      next()
+    })
+
 
 module.exports = router

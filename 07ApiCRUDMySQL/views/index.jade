@@ -1,0 +1,62 @@
+extends layout.jade
+
+block content
+  article#jade.container
+  h1
+      a(href='#{link}', target="_blank")= title
+    p= description
+  
+  article.container
+    h2 Estructura Basica de Jade
+    p Este archivo de html
+    p
+      Para concatener conetido
+      en varias lineas
+      se usa el pie
+  
+  include logo
+
+  article.container
+    p.
+      Si te gusta la forma en que Jade genera codigo HTML
+      pueder leer la documentacion  de Jade
+    br
+    button#presioname.boton Presioname
+    script.
+      //alert('javascript desde jade')
+      document.querySelector('#presioname').onclick = () => {
+        alert('Hola me has presionado')
+      }
+
+    -var nombre = 'Jade'
+    p Hola #{nombre}
+
+    -var fecha = new Date()
+    -var hora = fecha.getHours()
+
+    -if(hora < 12)
+      p La hora #{hora} es Antes del Meridiano (AM)
+    -else
+      p La hora #{hora} es posterior del meridiano (PM)
+
+    -var estaciones = ['Primavera', 'Verano', 'Otoño', 'Invierno']
+
+    h2 Estaciones del año
+    ol
+      each estacion in estaciones
+        li #{estacion}
+  
+  //- Los mixins son funciones en Jade
+	mixin mesesEstacionesMexico(estacion, meses)
+		div.item
+			h3 #{estacion}
+			ul
+				each mes in meses
+					li #{mes}
+
+	article.container
+		h2 Estaciones del Año en México
+		+mesesEstacionesMexico(estaciones[0], ['Abril', 'Mayo', 'Junio'])
+		+mesesEstacionesMexico(estaciones[1], ['Julio', 'Agosto', 'Septiembre'])
+		+mesesEstacionesMexico(estaciones[2], ['Octubre', 'Noviembre', 'Diciembre'])
+		+mesesEstacionesMexico(estaciones[3], ['Enero', 'Febrero', 'Marzo'])

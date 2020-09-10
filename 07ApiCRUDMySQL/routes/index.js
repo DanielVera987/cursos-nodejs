@@ -34,6 +34,11 @@ router
       }) 
       //next()
     })
+    .get('/agregar', (req, res, next) => {
+      res.render('add-movie', {
+        title: 'Agregar pelicula'
+      })
+    })
     .use( error404 )
 
 

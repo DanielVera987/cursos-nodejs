@@ -2,7 +2,29 @@ extends layout.jade
 
 block content
   section.container
-    div.item.logo
-    div.item 
-      h1 
-        a(href="/")= title 
+    include header
+    article.item 
+      -if(data.length)
+        table.table
+          tr 
+            th Id
+            th Titulo
+            th Año
+            th Puntuacion
+            th Poster 
+            th(colspan="2")
+              form(method="get" action="/agregar")
+                input.button.add(type="submit" value="Agregar")
+          -each movie in data 
+            tr 
+              td #{movie.movie_id}
+              td #{movie.title}
+              td #{movie.release_year}
+              td #{movie.rating}
+              td
+                img.poster(src="#{movie.image}", alt="#{movie.title}")
+              td editar
+              td eliminar   
+      -else
+        p.error No existe Peliculas 
+          

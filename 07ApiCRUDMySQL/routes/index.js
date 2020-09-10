@@ -35,8 +35,46 @@ router
       //next()
     })
     .get('/agregar', (req, res, next) => {
-      res.render('add-movie', {
-        title: 'Agregar pelicula'
+      res.render('add-movie', { title: 'Agregar pelicula' })
+    })
+    .post('/', (req, res, next) => {
+      req.getConnection((err, movies) => {
+        let movie = {
+          movie_id: req.body.movie_id,
+          title: req.body.title,
+          release_year: req.body.release_year,
+          rating: req.body.rating,
+          image: req.body.image
+        }
+
+        console.log(movie)
+
+        movies.query('INSERT INTO movie SET ?', movie, (err, rows) => {
+          return (err) ? res.redirect('/agregar') : res.redirect('/') 
+        })
+      })
+    })
+    .get('/editar/:movie_id', (req, res, next) => {
+      let movie_id = req.params.movie_id
+      console.log(movie_id)
+
+      req.getConnection((err, movies) => {
+        movies.query('SELECT * FROM movie WHERE movie_id=?', movie_id, (err, rows) => {
+          console.log(err, '---', rows)
+          if(err)
+          {
+            throw(err)
+          }else
+          {
+            let locals = {
+              title: 'Editar Pelicula',
+              data: rows
+            }
+
+            res.render('edit-movie', locals)
+          }
+            
+        })
       })
     })
     .use( error404 )

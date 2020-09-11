@@ -27,8 +27,8 @@ block content
                 form(method="GET" action="/editar/#{movie.movie_id}")
                   input.button.edit(type="submit" value="Editar")
               td
-                form(method="GET" action="/eliminar/#{movie.movie_id}")
-                  input.button.delete(type="submit" value="Eliminar" onclick="eliminar(this)")
+                form(method="POST" action="/eliminar/#{movie.movie_id}")
+                  input.button.delete(type="button" value="Eliminar" onclick="eliminar(this)")
         script. 
           function eliminar(input)
           {

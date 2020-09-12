@@ -1,12 +1,13 @@
 'use strict'
 
 let mysql = require('mysql'),
+    conf = require('./db-conf'),
     dboptions = {
-      host : 'localhost',
-      port : 3306,
-      user : 'root',
-      password : '',
-      database : 'movies'
+      host : conf.mysql.host,
+      port : conf.mysql.port,
+      user : conf.mysql.user,
+      password : conf.mysql.password,
+      database : conf.mysql.database
     },
     myConn = mysql.createConnection(dboptions)
 

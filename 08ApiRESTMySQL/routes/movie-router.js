@@ -1,59 +1,13 @@
 'use strict'
 
-var movies = require('../models/movie-connection'),
-      express = require('express'),
-      router = express.Router()
-
-const error404 = (req, res, next) => {
-  let error = new Error(),
-      locals = {
-        title : 'Error 404',
-        description : 'Recurso No Encontrado',
-        error : error
-      }
-
-  error.status = 404
-
-  res.render('error',locals)
-
-  next()
-}
+var MovieController = require('../controllers/movie-controller'),
+    express = require('express'),
+    router = express.Router()
 
 router
-    .use(movies)
-    .get('/', (req, res, next) => {
-      req.getConnection((err, movies) => {
-        movies.query('SELECT * FROM movie', (err, rows) => {
-          let locals = {
-            title: 'Lista Peliculas',
-            data: rows
-          }
-
-          res.render('index', locals)
-        })
-      }) 
-      //next()
-    })
-    .get('/agregar', (req, res, next) => {
-      res.render('add-movie', { title: 'Agregar pelicula' })
-    })
-    .post('/', (req, res, next) => {
-      req.getConnection((err, movies) => {
-        let movie = {
-          movie_id: req.body.movie_id,
-          title: req.body.title,
-          release_year: req.body.release_year,
-          rating: req.body.rating,
-          image: req.body.image
-        }
-
-        console.log(movie)
-
-        movies.query('INSERT INTO movie SET ?', movie, (err, rows) => {
-          return (err) ? res.redirect('/agregar') : res.redirect('/') 
-        })
-      })
-    })
+    .get('/', MovieController.getAll)
+    .get('/agregar', MovieController.addForm)
+    .post('/', MovieController.insert)
     .get('/editar/:movie_id', (req, res, next) => {
       let movie_id = req.params.movie_id
       console.log(movie_id)
@@ -107,6 +61,6 @@ router
         })
       })
     })
-    .use( error404 )
+    .use(MovieController.error404)
 
 module.exports = router

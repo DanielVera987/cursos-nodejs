@@ -23,4 +23,5 @@ block content
 						label.item.i-b.v-top.ph3.p_25.right(for="image") Poster:
 						input.item.i-b.v-top.ph9.p_25#image(type="text", name="image", value="#{data[0].image}" required)
 					div.container.p1
+						input(type="hidden", name="_method", value="UPDATE")
 						input.item.ph4.mauto.button.edit(type="submit", value="Editar")

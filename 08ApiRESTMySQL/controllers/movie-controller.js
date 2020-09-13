@@ -50,7 +50,7 @@ MovieController.getOne = (req, res, next) => {
   })
 }
 
-MovieController.insert = (req, res, next) => {
+/* MovieController.insert = (req, res, next) => {
   let movie = {
     movie_id: req.body.movie_id,
     title: req.body.title,
@@ -73,9 +73,9 @@ MovieController.insert = (req, res, next) => {
       res.redirect('/')
     }
   })
-}
+} */
 
-MovieController.update = (req, res, next) => {
+/* MovieController.update = (req, res, next) => {
   let movie = {
     movie_id: req.body.movie_id,
     title: req.body.title,
@@ -98,11 +98,37 @@ MovieController.update = (req, res, next) => {
       res.redirect('/')
     }
   })
+} */
+
+MovieController.save = (req, res, next) => {
+  let movie = {
+    movie_id: req.body.movie_id,
+    title: req.body.title,
+    release_year: req.body.release_year,
+    rating: req.body.rating,
+    image: req.body.image
+  }
+
+  MovieModel.save(movie, (err) => {
+    if(err)
+    {
+      let locals = {
+				title : 'Error al actualizar el registro',
+				description : 'Error de Sintaxis SQL',
+				error : err
+			}
+			res.render('error', locals)
+    }
+    else{
+      res.redirect('/')
+    }
+  })
 }
+
 
 MovieController.delete = (req, res, next) => {
   let movie_id = req.params.movie_id
-  
+
   MovieModel.delete(movie_id, (err, rows) => {
     if(err)
     {

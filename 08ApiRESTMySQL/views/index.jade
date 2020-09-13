@@ -29,6 +29,7 @@ block content
               td
                 form(method="POST" action="/eliminar/#{movie.movie_id}")
                   input.button.delete(type="button" value="Eliminar" onclick="eliminar(this)")
+                  input(type="hidden", name="_method", value="DELETE")
         script. 
           function eliminar(input)
           {

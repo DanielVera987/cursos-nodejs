@@ -3,50 +3,25 @@ let MovieModel = require('../models/movie-model')
 let MovieController= () => {}
 
 MovieController.getAll = (req, res, next) => {
-  MovieModel.getAll((err, rows) => {
-    if(err)
-		{
-			let locals = {
-				title : 'Error al consultar la base de datos',
-				description : 'Error de Sintaxis SQL',
-				error : err
-			}
-			res.render('error', locals)
-		}
-		else
-		{
+  MovieModel.getAll((docs) => {
 			let locals = {
 				title : 'Lista de Películas',
-				data : rows
+				data : docs
 			}
 			res.render('index', locals)
-		}
   })
 }
 
 MovieController.getOne = (req, res, next) => {
   let movie_id = req.params.movie_id
   
-  MovieModel.getOne(movie_id, (err, rows) => {
-    console.log(err, '---', rows)
-    if(err)
-    {
-      let locals = {
-				title : 'Error al buscar el registro',
-				description : 'Error de Sintaxis SQL',
-				error : err
-      }
-      
-			res.render('error', locals)
-    }else
-    {
-      let locals = {
-        title: 'Editar Pelicula',
-        data: rows
-      }
-
-      res.render('edit-movie', locals)
+  MovieModel.getOne(movie_id, (docs) => {
+    let locals = {
+      title: 'Editar Pelicula',
+      data: docs
     }
+
+    res.render('edit-movie', locals)
   })
 }
 
@@ -59,56 +34,31 @@ MovieController.save = (req, res, next) => {
     image: req.body.image
   }
 
-  MovieModel.save(movie, (err) => {
-    if(err)
-    {
-      let locals = {
-				title : 'Error al actualizar el registro',
-				description : 'Error de Sintaxis SQL',
-				error : err
-			}
-			res.render('error', locals)
-    }
-    else{
-      res.redirect('/')
-    }
-  })
+  MovieModel.save( movie, () => res.redirect('/') )
 }
 
 MovieController.delete = (req, res, next) => {
-  let movie_id = req.params.movie_id
+	let movie_id = req.params.movie_id
+	console.log(movie_id)
 
-  MovieModel.delete(movie_id, (err, rows) => {
-    if(err)
-    {
-      let locals = {
-				title : 'Error al eliminar el registro',
-				description : 'Error de Sintaxis SQL',
-				error : err
-			}
-			res.render('error', locals)
-    }
-    else{
-      res.redirect('/')
-    }
-  })
+	MovieModel.delete( movie_id, () => res.redirect('/') )
 }
 
 MovieController.addForm = (req, res, next) => res.render('add-movie', {title: 'Agregar pelicula'})
 
-MovieController.error404 = () => {
-  let error = new Error(),
-      locals = {
-        title : 'Error 404',
-        description : 'Recurso No Encontrado',
-        error : error
-      }
+MovieController.error404 = (req, res, next) => {
+	let error = new Error(),
+		locals = {
+			title : 'Error 404',
+			description : 'Recurso No Encontrado',
+			error : error
+		}
 
-  error.status = 404
+	error.status = 404
 
-  res.render('error',locals)
+	res.render('error', locals)
 
-  next()
+	next()
 }
 
 module.exports = MovieController

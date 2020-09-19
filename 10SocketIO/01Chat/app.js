@@ -1,4 +1,5 @@
 'use strict'
+
 const express = require('express')
 const app = express()
 const http = require('http').createServer(app)
@@ -14,4 +15,16 @@ app
 
 http.listen(port, () => {
   console.log('Iniciando Express y Socket.IO en el puerto 3000')
+})
+
+io.on('connection', (socket) => {
+  socket.broadcast.emit('new user', { message: 'Ha entrado un usuario al chat' })
+
+  socket.on('new message', (message) => {
+    io.emit('user says', message)
+  })
+
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('disconnect', { message : 'bye' })
+  })
 })

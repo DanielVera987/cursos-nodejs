@@ -30,6 +30,19 @@ io.on('connection', function (socket) {
     });
   });
 
+  socket.on('exist user', function(username, cb){
+    if(username.hasOwnProperty(username))
+    {
+      console.log('User already exists');
+      cb(false);
+    }
+    else
+    {
+      console.log(`User don\'t exists!`);
+      cb(true);
+    }
+  })
+
   // when the client emits 'add user', this listens and executes
   socket.on('add user', function (username) {
     // we store the username in the socket session for this client

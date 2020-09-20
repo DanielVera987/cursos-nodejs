@@ -31,7 +31,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('exist user', function(username, cb){
-    if(username.hasOwnProperty(username))
+    if(usernames.hasOwnProperty(username))
     {
       console.log('User already exists');
       cb(false);

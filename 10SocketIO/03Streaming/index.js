@@ -20,5 +20,8 @@ app
   })
 
 io.on('connection', (socket) => {
-
+	socket.on('streaming', (image) => {
+		io.emit('play stream', image)
+		console.log(image)
+	})
 })
